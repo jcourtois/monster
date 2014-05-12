@@ -56,6 +56,8 @@ class Provisioner(openstack.Provisioner):
         self.update(node)
         if "centos" in node.os_name:
             self.rdo(node)
+        if "ubuntu" in node.os_name:
+            node.run_cmd("export DEBIAN_FRONTEND=noninteractive")
         if "controller" in node.name:
             self.hosts(node)
 

@@ -184,6 +184,8 @@ class Deployment(base.Deployment):
         return ip
 
     def wrap_node(self, node):
+        """Wraps a chef node in a monster interface.
+        :rtype: monster.nodes.base.Node"""
         remote_api = self.environment.remote_api
         if remote_api:
             remote_node = chef.Node(node.name, remote_api)
