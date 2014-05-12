@@ -3,17 +3,18 @@
 Command-line interface for building OpenStack clusters
 """
 
+from monster.logger import logger as monster_logger
+
+logger = monster_logger.Logger().logger_setup()
+
 import os
 import subprocess
 import traceback
 
 import argh
 
-
 import monster.active as active
-
 from monster.data import data
-from monster.logger import logger as monster_logger
 from monster.database import store_build_params
 from monster.utils.color import Color
 from monster.orchestrator.util import get_orchestrator
@@ -21,8 +22,6 @@ from monster.tests.ha import HATest
 from monster.tests.cloudcafe import CloudCafe
 from monster.tests.tempest_neutron import TempestNeutron
 from monster.tests.tempest_quantum import TempestQuantum
-
-logger = monster_logger.Logger().logger_setup()
 
 
 @store_build_params
@@ -33,18 +32,19 @@ def rpcs(name, template="ubuntu-default", branch="master",
     """Build an Rackspace Private Cloud deployment."""
     _load_config(name)
 
-    orchestrator = get_orchestrator(orchestrator)
-    deployment = orchestrator.create_deployment_from_file(name)
-    try:
-        if dry:
-            deployment.update_environment()
-        else:
-            deployment.build()
-    except Exception:
-        error = traceback.print_exc()
-        logger.exception(error)
+    with get_orchestrator(orchestrator) as orchestrator:
+        deployment = orchestrator.create_deployment_from_file(name)
+        raise AssertionError()
+        try:
+            if dry:
+                deployment.update_environment()
+            else:
+                deployment.build()
+        except Exception:
+            error = traceback.print_exc()
+            logger.exception(error)
 
-    logger.info(deployment)
+        logger.info(deployment)
 
 
 @store_build_params

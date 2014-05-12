@@ -5,6 +5,7 @@ import chef
 import monster.deployments.rpcs.deployment as rpcs
 import monster.features.node.features as node_features
 import monster.orchestrator.base as base
+import monster.active
 
 from monster.environments.chef_.environment import Environment
 
@@ -66,3 +67,19 @@ class Orchestrator(base.Orchestrator):
     @property
     def local_api(self):
         return chef.autoconfigure()
+
+    def __enter__(self):
+        print("In __enter__ !")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_val:
+            logger.warning("Something went wrong...")
+            build_name = monster.active.build_args['name']
+            logger.warning("Attempting cleanup!")
+            try:
+                rpcs.Deployment.force_destroy(build_name)
+            except:
+                logger.critical("An error occurred during cleanup.")
+        else:
+            return True
