@@ -16,12 +16,12 @@ ubuntu-ha-neutron:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network]
-    - [controller, network]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network]}
+    - {features: [controller, network]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 ubuntu-ha-novanet-actived:
   product: compute
@@ -40,12 +40,12 @@ ubuntu-ha-novanet-actived:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller]
-    - [controller]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller]}
+    - {features: [controller]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 ubuntu-ha-novanet-openldap:
   product: compute
@@ -64,12 +64,12 @@ ubuntu-ha-novanet-openldap:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller]
-    - [controller]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller]}
+    - {features: [controller]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 centos-ha-neutron:
   product: compute
@@ -89,12 +89,12 @@ centos-ha-neutron:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network]
-    - [controller, network]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network]}
+    - {features: [controller, network]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 centos-ha-novanet-actived:
   product: compute
@@ -113,12 +113,12 @@ centos-ha-novanet-actived:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller]
-    - [controller]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller]}
+    - {features: [controller]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 centos-ha-novanet-openldap:
   product: compute
@@ -137,9 +137,9 @@ centos-ha-novanet-openldap:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller]
-    - [controller]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller]}
+    - {features: [controller]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}

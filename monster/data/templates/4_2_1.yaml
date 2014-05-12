@@ -17,12 +17,12 @@ ubuntu-ha-neutron:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [controller, network, orchestration]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [controller, network, orchestration]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 ubuntu-ha-novanet-actived:
   product: compute
@@ -42,12 +42,12 @@ ubuntu-ha-novanet-actived:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, orchestration]
-    - [controller, orchestration]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, orchestration]}
+    - {features: [controller, orchestration]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 ubuntu-ha-novanet-openldap:
   product: compute
@@ -67,9 +67,9 @@ ubuntu-ha-novanet-openldap:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, orchestration]
-    - [controller, orchestration]
-    - [cinder]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, orchestration]}
+    - {features: [controller, orchestration]}
+    - {features: [cinder]}
+    - {features: [compute]}
+    - {features: [compute]}

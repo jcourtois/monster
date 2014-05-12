@@ -14,9 +14,9 @@ ubuntu-default:
     osopsnetworks: default
     neutron: neutron
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [compute]}
 
 centos-default:
   product: compute
@@ -35,9 +35,9 @@ centos-default:
     osopsnetworks: default
     neutron: neutron
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [compute]}
 
 ubuntu-nova-net:
   product: compute
@@ -54,9 +54,9 @@ ubuntu-nova-net:
     osops: default
     osopsnetworks: default
   nodes:
-    - [chefserver]
-    - [controller, orchestration]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, orchestration]}
+    - {features: [compute]}
 
 centos-nova-net:
   product: compute
@@ -74,9 +74,9 @@ centos-nova-net:
     osops: default
     osopsnetworks: default
   nodes:
-    - [chefserver]
-    - [controller, orchestration]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, orchestration]}
+    - {features: [compute]}
 
 ubuntu-ha:
   product: compute
@@ -95,10 +95,10 @@ ubuntu-ha:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [controller, network]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [controller, network]}
+    - {features: [compute]}
 
 centos-ha:
   product: compute
@@ -117,10 +117,10 @@ centos-ha:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [controller, network]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [controller, network]}
+    - {features: [compute]}
 
 ubuntu-ha-nova-net:
   product: compute
@@ -138,11 +138,11 @@ ubuntu-ha-nova-net:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, orchestration]
-    - [controller]
-    - [compute]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, orchestration]}
+    - {features: [controller]}
+    - {features: [compute]}
+    - {features: [compute]}
 
 centos-ha:
   product: compute
@@ -161,10 +161,10 @@ centos-ha:
     osopsnetworks: default
     highavailability: default
   nodes:
-    - [chefserver]
-    - [controller, network, orchestration]
-    - [controller, network]
-    - [compute]
+    - {features: [chefserver]}
+    - {features: [controller, network, orchestration]}
+    - {features: [controller, network]}
+    - {features: [compute]}
 
 ubuntu-swift:
   product: storage
@@ -175,13 +175,13 @@ ubuntu-swift:
     keystone: swift
     swift: rpcs
   nodes:
-    - [chefserver, berkshelf]
-    - [controller]
-    - [proxy]
-    - [proxy]
-    - [storage]
-    - [storage]
-    - [storage]
+    - {features: [chefserver, berkshelf]}
+    - {features: [controller]}
+    - {features: [proxy]}
+    - {features: [proxy]}
+    - {features: [storage]}
+    - {features: [storage]}
+    - {features: [storage]}
 
 centos-swift:
   product: storage
@@ -192,10 +192,10 @@ centos-swift:
     keystone: swift
     swift: rpcs
   nodes:
-    - [chefserver, berkshelf]
-    - [controller]
-    - [proxy]
-    - [proxy]
-    - [storage]
-    - [storage]
-    - [storage]
+    - {features: [chefserver, berkshelf]}
+    - {features: [controller]}
+    - {features: [proxy]}
+    - {features: [proxy]}
+    - {features: [storage]}
+    - {features: [storage]}
+    - {features: [storage]}
