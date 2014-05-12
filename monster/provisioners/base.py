@@ -66,6 +66,7 @@ class Provisioner(object):
 
         for node, features in zip(built_nodes, active.template['nodes']):
             node.add_features(features)
+
         deployment.nodes = built_nodes
 
     def load_nodes(self, deployment):

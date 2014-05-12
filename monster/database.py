@@ -22,6 +22,10 @@ def ping_db():
         raise AssertionError()
 
 
+def remove_key(build_name):
+    return None
+
+
 def get_connection():
     """:rtype: redis.StrictRedis """
     return db
@@ -34,7 +38,6 @@ def store_build_params(f, *args):
     db.hmset(data['name'], data)
     return f(*args)
 
-
 try:
     ping_db()
 except:
@@ -44,5 +47,6 @@ except:
         ping_db()
     except:
         logger.exception("Database still not responsive.  Exiting.")
+
 
 db = redis.StrictRedis(host='localhost', port=6379, db=0)

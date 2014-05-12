@@ -78,8 +78,27 @@ class Orchestrator(base.Orchestrator):
             build_name = monster.active.build_args['name']
             logger.warning("Attempting cleanup!")
             try:
-                rpcs.Deployment.force_destroy(build_name)
+                force_destroy_deployment(build_name)
             except:
                 logger.critical("An error occurred during cleanup.")
         else:
             return True
+
+
+def force_destroy_deployment(build_name):
+    import chef
+    import monster.database
+    for name in monster.active.template.node_names:
+        node = chef.Node(name, chef.autoconfigure())
+        if node.exists:
+            node.delete()
+        client = chef.Client(name, chef.autoconfigure())
+        if client.exists:
+            client.delete()
+    env = chef.Environment(build_name, chef.autoconfigure())
+    if env.exists:
+        env.delete()
+    monster.database.remove_key(build_name)
+
+    #delete external servers
+    #delete database entries

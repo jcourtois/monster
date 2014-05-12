@@ -2,8 +2,39 @@ import logging
 import time
 import chef
 
+import monster.active as active
 
 logger = logging.getLogger(__name__)
+
+
+def node_names():
+    """Helper for naming nodes.
+    :rtype: list(str)
+    """
+    try:
+        return _names_defined_in_template()
+    except (KeyError, AssertionError):
+        return _generated_names_from_roles()
+
+
+def _names_defined_in_template():
+    """Returns list of template node names, if they exist.
+    Each node must have a unique name defined in the template."""
+    names = [node['hostname'] for node in active.template['nodes']]
+    assert len(set(names)) == len(names)
+    return names
+
+
+def _generated_names_from_roles():
+    import collections
+    prefix = active.build_args['name']
+    roles = [node['features'][0] for node in active.template['nodes']]
+    count = collections.Counter()
+    names = []
+    for role in roles:
+        count[role] += 1
+        names.append("%s-%s%s" % (prefix, role, count[role]))
+    return names
 
 
 def node_search(query, environment=None, tries=10):

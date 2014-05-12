@@ -6,6 +6,7 @@ import chef
 import monster.provisioners.base as base
 import monster.clients.openstack as openstack
 import monster.active as active
+from monster.nodes.util import node_names
 from monster.utils.access import run_cmd, check_port
 
 logger = logging.getLogger(__name__)
@@ -25,26 +26,6 @@ class Provisioner(base.Provisioner):
     def __str__(self):
         return 'openstack'
 
-    def name(self, name, deployment, number=None):
-        """Helper for naming nodes.
-        :param name: name for node
-        :type name: String
-        :param deployment: deployment object
-        :type deployment: monster.deployments.base.Deployment
-        :param number: number to append to name
-        :type number: int
-        :rtype: string
-        """
-        if name in self.name_index:
-            # Name already exists, use index to name
-            num = self.name_index[name] + 1
-            self.name_index[name] = num
-            return "{0}-{1}{2}".format(deployment.name, name, num)
-
-        # Name doesn't exist initialize index use name
-        self.name_index[name] = 1
-        return "{0}-{1}".format(deployment.name, name)
-
     def provision(self, deployment):
         """Provisions a chef node using OpenStack.
         :param deployment: ChefDeployment to provision for
@@ -54,17 +35,15 @@ class Provisioner(base.Provisioner):
         logger.info("Provisioning in the cloud!")
         # acquire connection
 
-        # create instances concurrently
         events = []
-        for features in active.template['nodes']:
-            name = self.name(features[0], deployment)
-            self.names.append(name)
-            flavor = active.config['rackspace']['roles'][features[0]]
-            events.append(gevent.spawn(self.chef_instance, deployment, name,
+        for name, node in zip(node_names(), active.template['nodes']):
+            flavor = active.config['rackspace']['roles'][node['features'][0]]
+            events.append(gevent.spawn(self.chef_instance,
+                                       deployment=deployment,
+                                       name=name,
                                        flavor=flavor))
         gevent.joinall(events)
 
-        # acquire chef nodes
         self.nodes += [event.value for event in events]
         return self.nodes
 

@@ -205,12 +205,3 @@ class Deployment(base.Deployment):
 
         chef_remote_node.add_features(archive.get('features', []))
         return chef_remote_node
-
-    @classmethod
-    def force_destroy(cls, build_name):
-        from IPython import embed; embed()
-        #delete external servers
-        #delete chef nodes
-        #delete chef clients
-        #delete chef environment
-        #delete database entries
