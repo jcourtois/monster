@@ -23,7 +23,7 @@ def ping_db():
 
 
 def remove_key(build_name):
-    return None
+    db.delete(build_name)
 
 
 def get_connection():

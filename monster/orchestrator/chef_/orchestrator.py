@@ -5,9 +5,9 @@ import chef
 import monster.deployments.rpcs.deployment as rpcs
 import monster.features.node.features as node_features
 import monster.orchestrator.base as base
-import monster.active
-
+import monster.active as active
 from monster.environments.chef_.environment import Environment
+from monster.provisioners.util import get_cleanup_module
 
 logger = logging.getLogger(__name__)
 
@@ -73,32 +73,17 @@ class Orchestrator(base.Orchestrator):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context handler to ensure that builds are destroyed on exception."""
         if exc_val:
+            build_name = active.build_args['name']
+            provisioner = active.build_args['provisioner']
+
             logger.warning("Something went wrong...")
-            build_name = monster.active.build_args['name']
             logger.warning("Attempting cleanup!")
             try:
-                force_destroy_deployment(build_name)
+                cleanup_mod = get_cleanup_module(provisioner)
+                cleanup_mod.force_destroy_deployment(build_name)
             except:
                 logger.critical("An error occurred during cleanup.")
         else:
             return True
-
-
-def force_destroy_deployment(build_name):
-    import chef
-    import monster.database
-    for name in monster.active.template.node_names:
-        node = chef.Node(name, chef.autoconfigure())
-        if node.exists:
-            node.delete()
-        client = chef.Client(name, chef.autoconfigure())
-        if client.exists:
-            client.delete()
-    env = chef.Environment(build_name, chef.autoconfigure())
-    if env.exists:
-        env.delete()
-    monster.database.remove_key(build_name)
-
-    #delete external servers
-    #delete database entries
