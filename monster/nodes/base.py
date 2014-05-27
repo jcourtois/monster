@@ -59,7 +59,7 @@ class Node(object):
 
     @property
     def ssh_connection(self):
-        if active.ssh_connection[self.name] is None:
+        if self.name not in active.ssh_connection:
             active.ssh_connection[self.name] = ssh_connection(self.ipaddress,
                                                               self.user,
                                                               self.password)
