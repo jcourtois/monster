@@ -33,7 +33,6 @@ class Node(object):
         self.provisioner_name = deployment.provisioner_name
         self.features = []
         self._cleanups = []
-        self.ssh = None
         self.status = "unknown"
 
     def __repr__(self):
@@ -76,7 +75,6 @@ class Node(object):
         """
         logger.info("Running: {0} on {1}".format(remote_cmd, self.name))
         for _ in range(attempts):
-            from IPython import embed; embed()
             ret = ssh_cmd(ssh=self.ssh_connection,
                           remote_cmd=remote_cmd)
             if ret['success']:

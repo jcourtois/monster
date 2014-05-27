@@ -67,10 +67,11 @@ def scp_to(ip, local_path, user='root', password=None, remote_path=""):
 
 def get_ssh(server_ip, user, password):
     ssh = get_paramiko_ssh_client()
-    return ssh.connect(hostname=server_ip,
-                       username=user,
-                       password=password,
-                       allow_agent=False)
+    ssh.connect(hostname=server_ip,
+                username=user,
+                password=password,
+                allow_agent=False)
+    return ssh
 
 
 def ssh_cmd(ssh, remote_cmd):
