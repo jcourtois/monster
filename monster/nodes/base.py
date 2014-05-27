@@ -11,7 +11,8 @@ import monster.nodes.util as node_util
 import monster.active as active
 from monster.provisioners.util import get_provisioner
 
-from monster.utils.access import scp_from, scp_to, ssh_cmd, ssh_connection
+import monster.utils.access as access
+from monster.utils.access import scp_from, scp_to, ssh_cmd
 from monster.utils.introspection import module_classes
 
 
@@ -60,7 +61,7 @@ class Node(object):
     @property
     def ssh_connection(self):
         if self.name not in active.ssh_connection:
-            active.ssh_connection[self.name] = ssh_connection(self.ipaddress,
+            active.ssh_connection[self.name] = access.get_ssh(self.ipaddress,
                                                               self.user,
                                                               self.password)
         return active.ssh_connection[self.name]
@@ -75,6 +76,7 @@ class Node(object):
         """
         logger.info("Running: {0} on {1}".format(remote_cmd, self.name))
         for _ in range(attempts):
+            from IPython import embed; embed()
             ret = ssh_cmd(ssh=self.ssh_connection,
                           remote_cmd=remote_cmd)
             if ret['success']:

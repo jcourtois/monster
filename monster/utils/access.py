@@ -65,7 +65,7 @@ def scp_to(ip, local_path, user='root', password=None, remote_path=""):
     sftp.put(local_path, remote_path)
 
 
-def ssh_connection(server_ip, user, password):
+def get_ssh(server_ip, user, password):
     ssh = get_paramiko_ssh_client()
     return ssh.connect(hostname=server_ip,
                        username=user,
