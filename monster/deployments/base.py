@@ -1,5 +1,6 @@
 import types
 import logging
+import multiprocessing
 
 import tmuxp
 import monster.features.deployment.features as deployment_features
@@ -78,9 +79,9 @@ class Deployment(object):
     def build_nodes(self):
         """Builds each node."""
         self.status = "Building nodes..."
-        for node in self.nodes:
-            logger.debug("Building node {0}!".format(str(node)))
-            node.build()
+        pool = multiprocessing.Pool(processes=6)
+        self.nodes = [pool.apply_async(work, args=(node,)).get(timeout=900)
+                      for node in self.nodes]
         self.status = "Nodes built!"
 
     def post_configure(self):
@@ -187,3 +188,8 @@ class Deployment(object):
 
         retrofit.install(branch)
         retrofit.bootstrap(iface, lx_bridge, ovs_bridge)
+
+
+def work(node):
+    logger.debug("Building node {0}!".format(str(node)))
+    node.build()
