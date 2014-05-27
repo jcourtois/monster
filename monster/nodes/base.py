@@ -11,7 +11,7 @@ import monster.nodes.util as node_util
 import monster.active as active
 from monster.provisioners.util import get_provisioner
 
-from monster.utils.access import scp_from, scp_to, ssh_cmd
+from monster.utils.access import scp_from, scp_to, ssh_cmd, ssh_connection
 from monster.utils.introspection import module_classes
 
 
@@ -32,6 +32,7 @@ class Node(object):
         self.provisioner_name = deployment.provisioner_name
         self.features = []
         self._cleanups = []
+        self.ssh = None
         self.status = "unknown"
 
     def __repr__(self):
@@ -56,39 +57,37 @@ class Node(object):
     def __setitem__(self, item, value):
         raise NotImplementedError()
 
-    def run_cmd(self, remote_cmd, user='root', password=None, attempts=None):
+    @property
+    def ssh_connection(self):
+        if active.ssh_connection[self.name] is None:
+            active.ssh_connection[self.name] = ssh_connection(self.ipaddress,
+                                                              self.user,
+                                                              self.password)
+        return active.ssh_connection[self.name]
+
+    def run_cmd(self, remote_cmd, attempts=1):
         """Runs a command on the node.
         :param remote_cmd: command to run on the node
         :type remote_cmd: str
-        :param user: user to run the command as
-        :type user: str
-        :param password: password to authenticate with
-        :type password:: str
         :param attempts: number of times
         :type attempts: int
         :rtype: dict
         """
-        user = user or self.user
-        password = password or self.password
         logger.info("Running: {0} on {1}".format(remote_cmd, self.name))
-        count = attempts or 1
-        ret = ssh_cmd(self.ipaddress, remote_cmd=remote_cmd,
-                      user=user, password=password)
-        while not ret['success'] and count:
-            ret = ssh_cmd(self.ipaddress, remote_cmd=remote_cmd,
-                          user=user, password=password)
-            count -= 1
-            if not ret['success']:
-                time.sleep(5)
-
-        if not ret['success'] and attempts:
-            raise Exception("Failed to run {0} after {1} attempts".format(
-                remote_cmd, attempts))
+        for _ in range(attempts):
+            ret = ssh_cmd(ssh=self.ssh_connection,
+                          remote_cmd=remote_cmd)
+            if ret['success']:
+                break
+            time.sleep(5)
+        else:
+            raise Exception("Failed to run {0} after {1} attempts"
+                            "".format(remote_cmd, attempts))
         return ret
 
-    def run_cmds(self, remote_cmds, user='root', password=None, attempts=None):
+    def run_cmds(self, remote_cmds, attempts=None):
         cmd = "; ".join(remote_cmds)
-        self.run_cmd(cmd, user, password, attempts)
+        self.run_cmd(cmd, attempts)
 
     def scp_to(self, local_path, user=None, password=None, remote_path=""):
         """Sends a file to the node.

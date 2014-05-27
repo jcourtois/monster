@@ -65,18 +65,23 @@ def scp_to(ip, local_path, user='root', password=None, remote_path=""):
     sftp.put(local_path, remote_path)
 
 
-def ssh_cmd(server_ip, remote_cmd, user='root', password=None):
+def ssh_connection(server_ip, user, password):
+    ssh = get_paramiko_ssh_client()
+    return ssh.connect(hostname=server_ip,
+                       username=user,
+                       password=password,
+                       allow_agent=False)
+
+
+def ssh_cmd(ssh, remote_cmd):
     """
-    :param server_ip
-    :param user
-    :param password
+    :param ssh ssh connection
     :param remote_cmd
     :return A map based on pass / fail run info
     """
     output = cStringIO.StringIO()
     error = cStringIO.StringIO()
-    ssh = get_paramiko_ssh_client()
-    ssh.connect(server_ip, username=user, password=password, allow_agent=False)
+
     stdin, stdout, stderr = ssh.exec_command(remote_cmd)
     stdin.close()
     for line in stdout:
