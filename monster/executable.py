@@ -2,6 +2,8 @@
 """
 Command-line interface for building OpenStack clusters
 """
+from monster.logger import logger as monster_logger
+logger = monster_logger.Logger().logger_setup()
 
 import os
 import subprocess
@@ -9,7 +11,6 @@ import argh
 
 import monster.db_iface as database
 from monster.data import data
-from monster.logger import logger as monster_logger
 from monster.utils.access import get_file
 from monster.utils.color import Color
 from monster.orchestrator.util import get_orchestrator
@@ -17,9 +18,6 @@ from monster.tests.ha import HATest
 from monster.tests.cloudcafe import CloudCafe
 from monster.tests.tempest_neutron import TempestNeutron
 from monster.tests.tempest_quantum import TempestQuantum
-
-
-logger = monster_logger.Logger().logger_setup()
 
 
 @database.store_build_params
