@@ -1,7 +1,7 @@
 """
 Module to test High Availability in RPC
 """
-import multiprocessing
+import logging
 import os
 import sys
 import socket
@@ -15,7 +15,7 @@ from monster.utils.color import Color
 from monster.tests.test import Test
 from monster.tests.util import xunit_merge
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class Creds(object):

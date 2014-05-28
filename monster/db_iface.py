@@ -1,5 +1,5 @@
 import inspect
-import multiprocessing
+import logging
 
 import dill as pickle
 from decorator import decorator
@@ -7,7 +7,7 @@ from decorator import decorator
 import monster.db as database
 
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 db = database.get_connection()
 
 

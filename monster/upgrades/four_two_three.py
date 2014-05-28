@@ -1,11 +1,11 @@
-import multiprocessing
+import logging
 
 from time import sleep
 
 import monster.active as actv
 from monster.upgrades.upgrade import Upgrade
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class FourTwoThree(Upgrade):

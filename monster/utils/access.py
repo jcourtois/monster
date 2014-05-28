@@ -5,10 +5,10 @@ import subprocess
 import sys
 import time
 import paramiko
-import multiprocessing
+import logging
 
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 def check_port(host, port, timeout=2):

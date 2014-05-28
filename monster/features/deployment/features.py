@@ -1,4 +1,4 @@
-import multiprocessing
+import logging
 import sys
 
 import requests
@@ -7,7 +7,7 @@ import monster.features.deployment.base as deployment_
 import monster.active as actv
 
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 #############################################################################

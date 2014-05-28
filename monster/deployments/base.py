@@ -1,5 +1,5 @@
 import types
-import multiprocessing
+import logging
 import multiprocessing
 
 import tmuxp
@@ -11,7 +11,7 @@ from monster.utils.introspection import module_classes
 from monster.provisioners.util import get_provisioner
 
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class Deployment(object):

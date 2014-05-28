@@ -1,10 +1,10 @@
 import chef
-import multiprocessing
+import logging
 
 import monster.active as active
 import monster.nodes.base as base
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class Node(base.Node):

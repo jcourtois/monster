@@ -1,4 +1,4 @@
-import multiprocessing
+import logging
 import gevent
 
 import chef
@@ -8,7 +8,7 @@ import monster.clients.openstack as openstack
 import monster.active as active
 from monster.utils.access import run_cmd, check_port
 
-logger = multiprocessing.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class Provisioner(base.Provisioner):
