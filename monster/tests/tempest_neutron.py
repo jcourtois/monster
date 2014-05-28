@@ -4,7 +4,7 @@ Module to test OpenStack deployments with Tempest
 
 import os
 import json
-import logging
+import multiprocessing
 import subprocess
 
 from string import Template
@@ -15,7 +15,7 @@ import monster.active as active
 from monster.tests.test import Test
 from monster.tests.util import xunit_merge
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class TempestNeutron(Test):

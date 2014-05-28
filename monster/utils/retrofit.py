@@ -1,7 +1,7 @@
-import logging
+import multiprocessing
 import monster.active as active
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class Retrofit(object):

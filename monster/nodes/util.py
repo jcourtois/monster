@@ -1,9 +1,9 @@
-import logging
+import multiprocessing
 import time
 import chef
 
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 def node_search(query, environment=None, tries=10):

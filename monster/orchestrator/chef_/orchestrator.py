@@ -1,4 +1,4 @@
-import logging
+import multiprocessing
 
 import chef
 from monster.data.data import load_deployment
@@ -8,7 +8,7 @@ import monster.orchestrator.base as base
 
 from monster.environments.chef_.environment import Environment
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 local_api = chef.autoconfigure()
 
 

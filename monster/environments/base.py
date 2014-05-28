@@ -1,6 +1,6 @@
-import logging
+import multiprocessing
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class Environment(dict):

@@ -1,8 +1,8 @@
 import subprocess
-import logging
+import multiprocessing
 import redis
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 def start_db():

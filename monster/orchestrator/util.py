@@ -1,8 +1,8 @@
-import logging
+import multiprocessing
 
 import monster.orchestrator.chef_.orchestrator as chef_orchestrator
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 def get_orchestrator(orchestrator_name):

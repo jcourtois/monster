@@ -1,4 +1,4 @@
-import logging
+import multiprocessing
 import os.path as path
 from yaml import load
 from collections import defaultdict
@@ -8,7 +8,7 @@ from monster import active
 import monster.db_iface as database
 
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 def load_deployment(name):

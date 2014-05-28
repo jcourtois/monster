@@ -1,3 +1,4 @@
+import multiprocessing
 import logging
 import logging.handlers
 import os
@@ -20,7 +21,7 @@ class Logger(object):
         self.log_file = log_file
 
     def logger_setup(self):
-        logger = logging.getLogger("monster")
+        logger = multiprocessing.get_logger()
 
         avail_level = {
             'DEBUG': logging.DEBUG,

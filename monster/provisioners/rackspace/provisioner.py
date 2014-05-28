@@ -1,4 +1,4 @@
-import logging
+import multiprocessing
 import pyrax
 
 import monster.active as active
@@ -6,7 +6,7 @@ import monster.provisioners.openstack.provisioner as openstack
 import monster.clients.openstack as openstack_client
 from monster.utils.access import check_port
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class Provisioner(openstack.Provisioner):

@@ -1,5 +1,5 @@
 import json
-import logging
+import multiprocessing
 import sys
 
 import requests
@@ -8,7 +8,7 @@ import monster.nodes.util as node_utils
 import monster.provisioners.base as base
 import monster.active as active
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class Provisioner(base.Provisioner):

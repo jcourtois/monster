@@ -1,5 +1,5 @@
 """Provides classes of nodes (server entities)"""
-import logging
+import multiprocessing
 import types
 import time
 
@@ -16,7 +16,7 @@ from monster.utils.access import scp_from, scp_to, ssh_cmd
 from monster.utils.introspection import module_classes
 
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 class Node(object):

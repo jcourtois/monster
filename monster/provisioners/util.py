@@ -1,11 +1,11 @@
-import logging
+import multiprocessing
 
 import monster.provisioners.openstack.provisioner as openstack
 import monster.provisioners.rackspace.provisioner as rackspace
 import monster.provisioners.razor.provisioner as razor
 import monster.provisioners.razor2.provisioner as razor2
 
-logger = logging.getLogger(__name__)
+logger = multiprocessing.get_logger()
 
 
 def get_provisioner(provisioner_name):
