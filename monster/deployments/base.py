@@ -79,7 +79,9 @@ class Deployment(object):
     def build_nodes(self):
         """Builds each node."""
         self.status = "Building nodes..."
-        monster.threading_iface.execute([node.build for node in self.nodes])
+        func_list = [node.build for node in self.nodes]
+        from IPython import embed; embed()
+        monster.threading_iface.execute(func_list)
         self.status = "Nodes built!"
 
     def post_configure(self):
