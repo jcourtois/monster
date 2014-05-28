@@ -1,10 +1,10 @@
 import types
 import logging
-import multiprocessing
-
 import tmuxp
+
 import monster.features.deployment.features as deployment_features
 import monster.active as active
+import monster.threading
 
 from monster.utils.retrofit import Retrofit
 from monster.utils.introspection import module_classes
@@ -79,9 +79,7 @@ class Deployment(object):
     def build_nodes(self):
         """Builds each node."""
         self.status = "Building nodes..."
-        pool = multiprocessing.Pool(processes=6)
-        self.nodes = [pool.apply_async(work, args=(node,)).get(timeout=900)
-                      for node in self.nodes]
+        monster.threading.execute([node.build for node in self.nodes])
         self.status = "Nodes built!"
 
     def post_configure(self):
