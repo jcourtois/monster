@@ -11,7 +11,7 @@ def execute(func_list):
 
     with ThreadPoolExecutor(max_workers=6) as executor:
         for function in func_list:
-            executor.submit(f(function))
+            executor.submit(f, function)
 
     while not q.empty():
         output.append(q.get())
