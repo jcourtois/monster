@@ -4,7 +4,7 @@ import tmuxp
 
 import monster.features.deployment.features as deployment_features
 import monster.active as active
-import monster.threading
+import monster.threading_iface
 
 from monster.utils.retrofit import Retrofit
 from monster.utils.introspection import module_classes
@@ -79,7 +79,7 @@ class Deployment(object):
     def build_nodes(self):
         """Builds each node."""
         self.status = "Building nodes..."
-        monster.threading.execute([node.build for node in self.nodes])
+        monster.threading_iface.execute([node.build for node in self.nodes])
         self.status = "Nodes built!"
 
     def post_configure(self):
