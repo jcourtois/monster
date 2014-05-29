@@ -46,6 +46,7 @@ class Provisioner(base.Provisioner):
             while name in self.given_names:
                 name = "{}{}".format(root, counter)
                 counter += 1
+            self.given_names.append(name)
             return name
 
     def provision(self, deployment, specs):
