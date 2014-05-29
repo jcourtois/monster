@@ -200,7 +200,7 @@ def run():
                       namespace='test',
                       title="test-related commands")
 
-    parser.add_commands([show, upgrade, add_nodes, destroy, retrofit,
+    parser.add_commands([show, upgrade, retrofit, add_nodes, destroy,
                          openrc, horizon, tmux])
 
     if 'monster' not in os.environ.get('VIRTUAL_ENV', ''):
