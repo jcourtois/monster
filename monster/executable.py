@@ -235,7 +235,8 @@ def run():
 
     deployment_parser.add_commands([list_deployments, show, update, upgrade,
                                     retrofit, add_nodes, destroy, openrc,
-                                    horizon, tmux, explore])
+                                    horizon, tmux, explore,
+                                    show_testing_credentials])
 
     parser.dispatch()
 
