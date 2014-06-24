@@ -174,13 +174,14 @@ def show(name):
     return deployment
 
 
-def show_testing_credentials(name):
+def show_testing_creds(name):
     """Provides public API and creds to run tempest."""
     data.load_config(name)
     deployment = data.load_deployment(name)
-    keystone = deployment.controller(1).local_node.normal['keystone']
-    api = keystone['publicURL']
-    user, password = keystone['user'], keystone['password']
+    api = deployment.controller(1).local_node.normal['keystone']['publicURL']
+    keystone = deployment.override_attrs['keystone']
+    user = keystone['admin_user']
+    password = keystone['users'][user]['password']
     return "api: {}\nuser: {}\npassword: {}".format(api, user, password)
 
 
@@ -236,7 +237,7 @@ def run():
     deployment_parser.add_commands([list_deployments, show, update, upgrade,
                                     retrofit, add_nodes, destroy, openrc,
                                     horizon, tmux, explore,
-                                    show_testing_credentials])
+                                    show_testing_creds])
 
     parser.dispatch()
 
